@@ -1,44 +1,20 @@
-//단수의 html요소 선택시
 const h1 = document.querySelector("h1");
-console.log(h1);
-//console.dir(h1);
+const h2 = document.querySelector("h2");
 
-//특정 부모요소 안쪽의 자식 요소 탐색 선택
-const title = document.querySelector(".title a");
-console.log(title);
+//DOM의 스타일을 다룰때 중요한점
+h1.style.color = "blue";
 
-//복수개 요소 탐색하는 방법
-const lis = document.querySelectorAll("ul li");
+//css로 적용된 스타일값을 자바스크롭 가져오는 법
+//html을 브라우저가 생성하는 DOM, css를 해석해서 생성하는 cssDOM
+//자바스크립트는 DOM만 제어가능할뿐, cssDOM접근, 제어가 불가능
+//그래서 이미 화면상에 스타일적용되어 있다 하더라도 DOM자체적으로 스타일 값이 없음
+console.dir(h2.style);
+console.log(h2.style.color);
 
-//배열형태로 반환된 복수개의 html요소 하나씩 선택
-for (let i = 0; i < 4; i++) {
-  console.log(lis[i]);
-}
-//자바스크립트에서 함수 만드는 법
-//1. 함수선언식
-function plus(num1, num2){
-  const result  = num1 + num2;
-  return result;
-}
-
-console.log(plus(2, 4));
-
-//2. 함수표현식(변수에 익명함수 대입)
-const minus = function(num1, num2){
-  const result = num1 - num2;
-  return result;
-};
-
-console.log(minus(3,1));
-
-//3. 화살표 함수로 축약된 함수 표현식
-//화살표 함수에서는 function키워드 생략, 중괄호 안쪽에 return문만 있으면 중괄호와 return키워드 생략
-const multiply = (num1, num2) => {
-  return num1 * num2;
-};
-
-console.log(multiply(3, 3));
-
-const multiply2 = (num1, num2) => num1 * num2;
-
-console.log(multiply(4, 3));
+//결국 자바스크립트는 cssDOM에 의해서 생성된 스타일객체에 접근할 수 없기 때문에
+//화면에 렌더링된 스타일 값을 가져오기 위해서는
+//화면에 이미 출력된 값을 역으로 연산해서 가져옴
+//아래처럼 이미 출력된 값을 재연산해서 가져오기 때문에
+//반환값이 color:'violet'아닌 실제적인 수치값은 rgb(238,130,223)정보 반환
+console.log(getComputedStyle(h2).color); //rgb(238,130,233)
+console.log(getComputedStyle(h1).fontSize); //160px
